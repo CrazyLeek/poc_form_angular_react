@@ -12,11 +12,15 @@ body {
 }
 
 :root {
+  --app-primary: #067e72;
+  --app-error: #e22626;
   --mdc-typography-body1-font-family: 'Poppins', sans-serif;
   --mdc-typography-body2-font-family: 'Poppins', sans-serif;
   --mdc-typography-subtitle1-font-family: 'Poppins', sans-serif;
   --mdc-typography-subtitle2-font-family: 'Poppins', sans-serif;
   --mdc-typography-button-font-family: 'Poppins', sans-serif;
+  --mdc-theme-primary: var(--app-primary);
+  --mat-sys-primary: var(--app-primary);
 }
 
 .mat-mdc-form-field,
@@ -37,4 +41,40 @@ body {
 .mat-mdc-form-field-hint,
 .mat-mdc-form-field-error {
   font-family: 'Poppins', sans-serif !important;
+}
+
+/* Use app primary color instead of Material default blue */
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: var(--app-primary) !important;
+}
+
+.mat-mdc-form-field-error {
+  color: var(--app-error) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-error-wrapper .mat-mdc-form-field-error {
+  color: var(--app-error) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__outer-circle {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-radio-button .mdc-radio__inner-circle {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__inner-circle {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element,
+.mat-mdc-radio-button .mat-mdc-focus-indicator::before {
+  background-color: color-mix(in srgb, var(--app-primary) 20%, transparent) !important;
 }
