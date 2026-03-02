@@ -1,0 +1,190 @@
+:host {
+  --brand-teal: #067e72;
+  --bg-beige: #f3efea;
+  --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  --text-main: #2e2e2e;
+  --text-muted: #5b5b5b;
+
+  color: var(--text-main);
+  display: block;
+}
+
+.page-shell {
+  background: linear-gradient(180deg, #f8f4ef 0%, var(--bg-beige) 55%, #f2eeea 100%);
+  min-height: 100vh;
+}
+
+.top-bar {
+  background: linear-gradient(90deg, #077c77 0%, #06757a 100%);
+  color: #fff;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.logo-badge {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  display: inline-flex;
+  font-size: 20px;
+  font-weight: 700;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.content-wrap {
+  margin: 0 auto;
+  max-width: 1040px;
+  padding: 32px 20px 48px;
+}
+
+.page-title {
+  color: var(--brand-teal);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 700;
+  margin: 0 0 24px;
+}
+
+.form-layout {
+  display: grid;
+  gap: 28px;
+}
+
+.section-title {
+  color: var(--brand-teal);
+  font-size: clamp(24px, 2.4vw, 36px);
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.section-card {
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+  display: grid;
+  gap: 18px;
+  padding: 20px;
+}
+
+.field-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.two-columns {
+  grid-template-columns: 1fr 1fr;
+}
+
+.compact-right {
+  grid-template-columns: minmax(120px, 180px) 1fr;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.field-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.radio-block {
+  display: grid;
+  gap: 8px;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.soft-note {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.coupon-row {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.coupon-field {
+  flex: 1;
+}
+
+.action-button {
+  --mdc-filled-button-container-color: #067e72;
+  --mdc-filled-button-label-text-color: #fff;
+  border-radius: 999px;
+}
+
+.action-button.large {
+  min-height: 44px;
+  min-width: 180px;
+}
+
+.typing-speed-field {
+  width: min(520px, 100%);
+}
+
+.field-error {
+  color: #c62828;
+  font-size: 13px;
+  margin: 0;
+}
+
+.feedback {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4px 0 0;
+}
+
+.feedback.success {
+  color: #2d8625;
+}
+
+.feedback.error {
+  color: #c62828;
+}
+
+.submit-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 780px) {
+  .content-wrap {
+    padding: 20px 12px 32px;
+  }
+
+  .section-card {
+    border-radius: 16px;
+    padding: 14px;
+  }
+
+  .two-columns,
+  .compact-right {
+    grid-template-columns: 1fr;
+  }
+
+  .coupon-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .action-button.large {
+    width: 100%;
+  }
+}

@@ -1,0 +1,199 @@
+<div class="page-shell">
+  <mat-toolbar class="top-bar">
+    <div class="logo-badge">T</div>
+    <span class="brand-name">Tapotons</span>
+  </mat-toolbar>
+
+  <main class="content-wrap">
+    <h1 class="page-title">Formulaire Tapotons</h1>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="form-layout">
+      <section>
+        <h2 class="section-title">Informations personnelles</h2>
+        <mat-card class="section-card">
+          <div class="field-grid two-columns">
+            <mat-form-field appearance="outline">
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="lastName" maxlength="40" />
+              <mat-hint align="end">{{ form.controls.lastName.value.length }}/40</mat-hint>
+              @if (form.controls.lastName.touched && form.controls.lastName.hasError('required')) {
+                <mat-error>Le nom est obligatoire.</mat-error>
+              }
+              @if (form.controls.lastName.touched && form.controls.lastName.hasError('maxlength')) {
+                <mat-error>Le nom ne peut pas dépasser 40 caractères.</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Prénom</mat-label>
+              <input matInput formControlName="firstName" maxlength="40" />
+              <mat-hint align="end">{{ form.controls.firstName.value.length }}/40</mat-hint>
+              @if (form.controls.firstName.touched && form.controls.firstName.hasError('required')) {
+                <mat-error>Le prénom est obligatoire.</mat-error>
+              }
+              @if (form.controls.firstName.touched && form.controls.firstName.hasError('maxlength')) {
+                <mat-error>Le prénom ne peut pas dépasser 40 caractères.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="radio-block">
+            <p class="field-title">Genre</p>
+            <mat-radio-group class="radio-group" formControlName="gender">
+              @for (gender of genders; track gender) {
+                <mat-radio-button [value]="gender">{{ gender }}</mat-radio-button>
+              }
+            </mat-radio-group>
+            @if (form.controls.gender.touched && form.controls.gender.hasError('required')) {
+              <p class="field-error">Le genre est obligatoire.</p>
+            }
+          </div>
+
+          <div class="field-grid two-columns compact-right">
+            <mat-form-field appearance="outline">
+              <mat-label>Age</mat-label>
+              <input matInput type="number" formControlName="age" min="1" step="1" />
+              @if (form.controls.age.touched && form.controls.age.hasError('required')) {
+                <mat-error>L'âge est obligatoire.</mat-error>
+              }
+              @if (form.controls.age.touched && form.controls.age.hasError('positiveInteger')) {
+                <mat-error>Entrez un entier strictement positif.</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Adresse mail</mat-label>
+              <input matInput type="email" formControlName="email" />
+              @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+                <mat-error>L'adresse e-mail est obligatoire.</mat-error>
+              }
+              @if (form.controls.email.touched && form.controls.email.hasError('email')) {
+                <mat-error>Veuillez saisir une adresse e-mail valide.</mat-error>
+              }
+              @if (form.controls.email.touched && form.controls.email.hasError('blockedDomain')) {
+                <mat-error>Les adresses en yopmail.com ne sont pas autorisées.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </section>
+
+      <section>
+        <h2 class="section-title">Type de compte</h2>
+        <mat-card class="section-card">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Type de compte</mat-label>
+            <mat-select formControlName="accountType">
+              @for (accountType of accountTypes; track accountType) {
+                <mat-option [value]="accountType">{{ accountType }}</mat-option>
+              }
+            </mat-select>
+            @if (form.controls.accountType.touched && form.controls.accountType.hasError('required')) {
+              <mat-error>Veuillez choisir un type de compte.</mat-error>
+            }
+          </mat-form-field>
+
+          <p class="soft-note">Vous pourrez changer de type de compte à tout moment dans les paramètres.</p>
+
+          @if (isPremium) {
+            <div class="radio-block">
+              <p class="field-title">Choisissez votre abonnement</p>
+              <mat-radio-group class="radio-group" formControlName="premiumPlan">
+                <mat-radio-button value="monthly">4 € / mois</mat-radio-button>
+                <mat-radio-button value="yearly">36 € / an (soit 3 € / mois)</mat-radio-button>
+              </mat-radio-group>
+              @if (form.controls.premiumPlan.touched && form.controls.premiumPlan.hasError('required')) {
+                <p class="field-error">Choisissez une fréquence d'abonnement.</p>
+              }
+            </div>
+
+            <div class="coupon-row">
+              <mat-form-field appearance="outline" class="coupon-field">
+                <mat-label>Coupon de réduction</mat-label>
+                <input matInput formControlName="couponCode" />
+              </mat-form-field>
+
+              <button mat-flat-button type="button" class="action-button" (click)="validateCoupon()" [disabled]="isCouponLoading">
+                Valider
+              </button>
+
+              @if (isCouponLoading) {
+                <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+              }
+            </div>
+
+            @if (couponUiState === 'success') {
+              <p class="feedback success">{{ couponFeedback }}</p>
+            }
+            @if (couponUiState === 'error') {
+              <p class="feedback error">{{ couponFeedback }}</p>
+            }
+          }
+        </mat-card>
+      </section>
+
+      <section>
+        <h2 class="section-title">Niveau en dactylo</h2>
+        <mat-card class="section-card">
+          <div class="radio-block">
+            <p class="field-title">Savez-vous taper avec vos dix doigts au clavier ?</p>
+            <mat-radio-group class="radio-group" formControlName="tenFingers">
+              <mat-radio-button [value]="true">Oui</mat-radio-button>
+              <mat-radio-button [value]="false">Non</mat-radio-button>
+            </mat-radio-group>
+            @if (form.controls.tenFingers.touched && form.controls.tenFingers.hasError('required')) {
+              <p class="field-error">Ce champ est obligatoire.</p>
+            }
+          </div>
+
+          <mat-form-field appearance="outline" class="typing-speed-field">
+            <mat-label>Quelle est votre vitesse de frappe ? (mot/min)</mat-label>
+            <input matInput type="number" formControlName="typingSpeed" min="1" step="1" />
+            <mat-hint>
+              Testez-vous :
+              <a href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
+            </mat-hint>
+            @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
+              <mat-error>La vitesse de frappe est obligatoire.</mat-error>
+            }
+            @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
+              <mat-error>Entrez un entier strictement positif.</mat-error>
+            }
+          </mat-form-field>
+
+          <div class="radio-block">
+            <p class="field-title">Avez-vous déjà utilisé un site de dactylo ?</p>
+            <mat-radio-group class="radio-group" formControlName="usedTypingSite">
+              <mat-radio-button [value]="true">Oui</mat-radio-button>
+              <mat-radio-button [value]="false">Non</mat-radio-button>
+            </mat-radio-group>
+            @if (form.controls.usedTypingSite.touched && form.controls.usedTypingSite.hasError('required')) {
+              <p class="field-error">Ce champ est obligatoire.</p>
+            }
+          </div>
+
+          @if (usedTypingSite) {
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Lequel ?</mat-label>
+              <mat-select formControlName="typingSite">
+                <mat-option value="RataType">RataType</mat-option>
+                <mat-option value="AgileFingers">AgileFingers</mat-option>
+              </mat-select>
+              @if (form.controls.typingSite.touched && form.controls.typingSite.hasError('required')) {
+                <mat-error>Veuillez sélectionner un site.</mat-error>
+              }
+            </mat-form-field>
+          }
+        </mat-card>
+      </section>
+
+      <div class="submit-row">
+        <button mat-flat-button type="submit" class="action-button large">Créer le compte</button>
+      </div>
+
+      @if (submitFeedback) {
+        <p class="feedback" [class.success]="form.valid" [class.error]="form.invalid">{{ submitFeedback }}</p>
+      }
+    </form>
+  </main>
+</div>
