@@ -1,10 +1,11 @@
 <div class="page-shell">
   <mat-toolbar class="top-bar">
-    <div class="logo-badge">T</div>
+    <img class="brand-logo" src="/tapotons-logo.svg" alt="Tapotons logo" />
     <span class="brand-name">Tapotons</span>
   </mat-toolbar>
 
   <main class="content-wrap">
+    <img class="keyboard-hero" src="/keyboard.svg" alt="" aria-hidden="true" />
     <h1 class="page-title">Formulaire Tapotons</h1>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="form-layout">
@@ -12,9 +13,9 @@
         <h2 class="section-title">Informations personnelles</h2>
         <mat-card class="section-card">
           <div class="field-grid two-columns">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" floatLabel="always">
               <mat-label>Nom</mat-label>
-              <input matInput formControlName="lastName" maxlength="40" />
+              <input matInput formControlName="lastName" maxlength="40" placeholder="Dupont" />
               <mat-hint align="end">{{ form.controls.lastName.value.length }}/40</mat-hint>
               @if (form.controls.lastName.touched && form.controls.lastName.hasError('required')) {
                 <mat-error>Le nom est obligatoire.</mat-error>
@@ -24,9 +25,9 @@
               }
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" floatLabel="always">
               <mat-label>Prénom</mat-label>
-              <input matInput formControlName="firstName" maxlength="40" />
+              <input matInput formControlName="firstName" maxlength="40" placeholder="Jean" />
               <mat-hint align="end">{{ form.controls.firstName.value.length }}/40</mat-hint>
               @if (form.controls.firstName.touched && form.controls.firstName.hasError('required')) {
                 <mat-error>Le prénom est obligatoire.</mat-error>

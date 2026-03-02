@@ -10,3 +10,22 @@ body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
 }
+
+:root {
+  --mdc-typography-body1-font-family: 'Poppins', sans-serif;
+  --mdc-typography-body2-font-family: 'Poppins', sans-serif;
+  --mdc-typography-subtitle1-font-family: 'Poppins', sans-serif;
+  --mdc-typography-subtitle2-font-family: 'Poppins', sans-serif;
+  --mdc-typography-button-font-family: 'Poppins', sans-serif;
+}
+
+.mat-mdc-form-field,
+.mat-mdc-input-element,
+.mat-mdc-select,
+.mat-mdc-option,
+.mat-mdc-button,
+.mdc-floating-label,
+.mat-mdc-form-field-hint,
+.mat-mdc-form-field-error {
+  font-family: 'Poppins', sans-serif !important;
+}
