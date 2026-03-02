@@ -15,7 +15,7 @@ import { CouponService } from './services/coupon.service';
 import { blockedEmailDomainValidator, positiveIntegerValidator } from './validators/form.validators';
 
 export type AccountType = 'Gratuit' | 'Premium';
-export type Gender = 'M' | 'Mme' | 'Autre';
+export type Gender = 'Homme' | 'Femme' | 'Autre';
 export type PremiumPlan = 'monthly' | 'yearly';
 export type TypingSite = 'RataType' | 'AgileFingers';
 export type CouponUiState = 'idle' | 'loading' | 'success' | 'error';
@@ -55,7 +55,7 @@ export class App {
   private readonly couponService = inject(CouponService);
 
   readonly accountTypes: AccountType[] = ['Gratuit', 'Premium'];
-  readonly genders: Gender[] = ['M', 'Mme', 'Autre'];
+  readonly genders: Gender[] = ['Homme', 'Femme', 'Autre'];
 
   readonly form = new FormGroup({
     lastName: new FormControl('', {

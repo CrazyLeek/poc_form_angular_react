@@ -97,7 +97,7 @@
 }
 
 .section-card {
-  border-radius: 24px;
+  border-radius: 16px;
   box-shadow: var(--card-shadow);
   display: grid;
   gap: 18px;
@@ -107,6 +107,19 @@
 .field-grid {
   display: grid;
   gap: 16px;
+}
+
+.field-block {
+  display: grid;
+  gap: 6px;
+}
+
+.field-counter {
+  color: #2f3440;
+  font-size: 18px;
+  font-weight: 500;
+  margin: -2px 0 0;
+  text-align: right;
 }
 
 .two-columns {
@@ -138,10 +151,24 @@
   gap: 16px;
 }
 
+.radio-group.vertical {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .soft-note {
   color: var(--text-muted);
   font-size: 14px;
   margin: 0;
+}
+
+.age-field mat-form-field {
+  width: min(180px, 100%);
+}
+
+.email-field mat-form-field {
+  width: min(560px, 100%);
 }
 
 .coupon-row {
@@ -225,6 +252,10 @@
   .two-columns,
   .compact-right {
     grid-template-columns: 1fr;
+  }
+
+  .field-counter {
+    font-size: 14px;
   }
 
   .coupon-row {
