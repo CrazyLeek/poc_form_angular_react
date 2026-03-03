@@ -121,28 +121,41 @@ export function TypingLevel(){
         </fieldset>
 
         {form.dejaUtilise === "oui" && (<>
+
+            <p className="mt-4 font-semibold"> Lequel(s) ?</p>
             
-            <div className="mt-4" /> {/* For some reason, vertical margins don't have any effect on the label*/}
-            
-            <label>
-                <input type="checkbox" name="fruits" value="pommes" />
-                Ratatype
-            </label>
-            
-            <label>
-                <input type="checkbox" name="fruits" value="bananes" />
-                Agile Fingers
-            </label>
-            
-            <label>
-                <input type="checkbox" name="fruits" value="cerises" />
-                Typing Study
-            </label>
-            
-            <label>
-                <input type="checkbox" name="fruits" value="fraises" />
-                Autre
-            </label>
+            <div className="flex flex-col gap-2 mt-2">
+                <label >
+                    <input type="checkbox" name="fruits" value="pommes" className="mr-2" />
+                    AgileFingers
+                </label>
+                
+                <label>
+                    <input type="checkbox" name="fruits" value="bananes" className="mr-2"/>
+                    Tapotons
+                </label>
+                
+                <label>
+                    <input type="checkbox" name="fruits" value="cerises" className="mr-2" />
+                    Ratatype
+                </label>
+                
+                <label>
+                    <input type="checkbox" name="fruits" value="fraises" className="mr-2"/>
+                    TapTouche
+                </label>
+
+                <label>
+                    <input type="checkbox" name="fruits" value="fraises" className="mr-2"/>
+                    EdClub
+                </label>
+
+                <label>
+                    <input type="checkbox" name="fruits" value="fraises" className="mr-2"/>
+                    Touch Typing Study
+                </label>
+
+            </div>
         </>)}
     
     </>)
