@@ -88,37 +88,40 @@
       <section>
         <h2 class="section-title">Type de compte</h2>
         <mat-card class="section-card">
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Type de compte</mat-label>
-            <mat-select formControlName="accountType">
-              @for (accountType of accountTypes; track accountType) {
-                <mat-option [value]="accountType">{{ accountType }}</mat-option>
+          <div class="field-block">
+            <p class="field-title">Type</p>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-select formControlName="accountType" placeholder="Veuillez choisir un type">
+                @for (accountType of accountTypes; track accountType) {
+                  <mat-option [value]="accountType">{{ accountType }}</mat-option>
+                }
+              </mat-select>
+              @if (form.controls.accountType.touched && form.controls.accountType.hasError('required')) {
+                <mat-error>Veuillez choisir un type de compte.</mat-error>
               }
-            </mat-select>
-            @if (form.controls.accountType.touched && form.controls.accountType.hasError('required')) {
-              <mat-error>Veuillez choisir un type de compte.</mat-error>
-            }
-          </mat-form-field>
-
-          <p class="soft-note">Vous pourrez changer de type de compte à tout moment dans les paramètres.</p>
+            </mat-form-field>
+          </div>
 
           @if (isPremium) {
             <div class="radio-block">
               <p class="field-title">Choisissez votre abonnement</p>
-              <mat-radio-group class="radio-group" formControlName="premiumPlan">
+              <mat-radio-group class="radio-group vertical" formControlName="premiumPlan">
                 <mat-radio-button value="monthly">4 € / mois</mat-radio-button>
                 <mat-radio-button value="yearly">36 € / an (soit 3 € / mois)</mat-radio-button>
               </mat-radio-group>
+              <p class="soft-note premium-note">Vous pourrez changer de type de compte à tout moment dans les paramètres.</p>
               @if (form.controls.premiumPlan.touched && form.controls.premiumPlan.hasError('required')) {
                 <p class="field-error">Choisissez une fréquence d'abonnement.</p>
               }
             </div>
 
             <div class="coupon-row">
-              <mat-form-field appearance="outline" class="coupon-field">
-                <mat-label>Coupon de réduction</mat-label>
-                <input matInput formControlName="couponCode" />
-              </mat-form-field>
+              <div class="field-block coupon-field">
+                <p class="field-title">Coupon de réduction</p>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="couponCode" placeholder="Entrez un coupon" />
+                </mat-form-field>
+              </div>
 
               <button mat-flat-button type="button" class="action-button" (click)="validateCoupon()" [disabled]="isCouponLoading">
                 Valider
@@ -144,7 +147,7 @@
         <mat-card class="section-card">
           <div class="radio-block">
             <p class="field-title">Savez-vous taper avec vos dix doigts au clavier ?</p>
-            <mat-radio-group class="radio-group" formControlName="tenFingers">
+            <mat-radio-group class="radio-group vertical" formControlName="tenFingers">
               <mat-radio-button [value]="true">Oui</mat-radio-button>
               <mat-radio-button [value]="false">Non</mat-radio-button>
             </mat-radio-group>
@@ -153,24 +156,26 @@
             }
           </div>
 
-          <mat-form-field appearance="outline" class="typing-speed-field">
-            <mat-label>Quelle est votre vitesse de frappe ? (mot/min)</mat-label>
-            <input matInput type="number" formControlName="typingSpeed" min="1" step="1" />
-            <mat-hint>
-              Testez-vous :
-              <a href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
-            </mat-hint>
-            @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
-              <mat-error>La vitesse de frappe est obligatoire.</mat-error>
-            }
-            @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
-              <mat-error>Entrez un entier strictement positif.</mat-error>
-            }
-          </mat-form-field>
+          <div class="field-block">
+            <p class="field-title">Quelle est votre vitesse de frappe ? (mot/min)</p>
+            <mat-form-field appearance="outline" class="typing-speed-field">
+              <input matInput type="number" formControlName="typingSpeed" min="1" step="1" placeholder="40" />
+              <mat-hint>
+                Testez-vous :
+                <a href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
+              </mat-hint>
+              @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
+                <mat-error>La vitesse de frappe est obligatoire.</mat-error>
+              }
+              @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
+                <mat-error>Entrez un entier strictement positif.</mat-error>
+              }
+            </mat-form-field>
+          </div>
 
           <div class="radio-block">
             <p class="field-title">Avez-vous déjà utilisé un site de dactylo ?</p>
-            <mat-radio-group class="radio-group" formControlName="usedTypingSite">
+            <mat-radio-group class="radio-group vertical" formControlName="usedTypingSite">
               <mat-radio-button [value]="true">Oui</mat-radio-button>
               <mat-radio-button [value]="false">Non</mat-radio-button>
             </mat-radio-group>
@@ -180,16 +185,18 @@
           </div>
 
           @if (usedTypingSite) {
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Lequel ?</mat-label>
-              <mat-select formControlName="typingSite">
-                <mat-option value="RataType">RataType</mat-option>
-                <mat-option value="AgileFingers">AgileFingers</mat-option>
-              </mat-select>
-              @if (form.controls.typingSite.touched && form.controls.typingSite.hasError('required')) {
-                <mat-error>Veuillez sélectionner un site.</mat-error>
-              }
-            </mat-form-field>
+            <div class="field-block">
+              <p class="field-title">Lequel ?</p>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-select formControlName="typingSite" placeholder="Sélectionnez un site">
+                  <mat-option value="RataType">RataType</mat-option>
+                  <mat-option value="AgileFingers">AgileFingers</mat-option>
+                </mat-select>
+                @if (form.controls.typingSite.touched && form.controls.typingSite.hasError('required')) {
+                  <mat-error>Veuillez sélectionner un site.</mat-error>
+                }
+              </mat-form-field>
+            </div>
           }
         </mat-card>
       </section>

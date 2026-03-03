@@ -48,6 +48,8 @@ body {
 }
 
 .mat-mdc-form-field {
+  --mat-form-field-container-height: 46px;
+  --mat-form-field-container-vertical-padding: 10px;
   max-width: var(--app-input-max-width);
   width: 100%;
 }
@@ -103,19 +105,23 @@ body {
   color: var(--app-error) !important;
 }
 
+.mat-mdc-radio-button .mdc-radio__outer-circle {
+  border-color: var(--app-neutral) !important;
+}
+
 .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__outer-circle {
-  border-color: var(--app-primary) !important;
+  border-color: var(--app-neutral) !important;
 }
 
 .mat-mdc-radio-button .mdc-radio__inner-circle {
-  border-color: var(--app-primary) !important;
+  border-color: var(--app-neutral) !important;
 }
 
 .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__inner-circle {
-  border-color: var(--app-primary) !important;
+  border-color: var(--app-neutral) !important;
 }
 
 .mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element,
 .mat-mdc-radio-button .mat-mdc-focus-indicator::before {
-  background-color: color-mix(in srgb, var(--app-primary) 20%, transparent) !important;
+  background-color: color-mix(in srgb, var(--app-neutral) 20%, transparent) !important;
 }
