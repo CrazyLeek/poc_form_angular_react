@@ -58,13 +58,13 @@
             <label class="field-title" for="age">Age</label>
             <mat-form-field appearance="outline">
               <input id="age" matInput type="number" formControlName="age" min="1" step="1" placeholder="26" />
-              @if (form.controls.age.touched && form.controls.age.hasError('required')) {
-                <mat-error>L'âge est obligatoire.</mat-error>
-              }
-              @if (form.controls.age.touched && form.controls.age.hasError('positiveInteger')) {
-                <mat-error>Entrez un entier strictement positif.</mat-error>
-              }
             </mat-form-field>
+            @if (form.controls.age.touched && form.controls.age.hasError('required')) {
+              <p class="field-error">L'âge doit être un nombre.</p>
+            }
+            @if (form.controls.age.touched && form.controls.age.hasError('positiveInteger')) {
+              <p class="field-error">Entrez un entier strictement positif.</p>
+            }
           </div>
 
           <div class="field-block email-field">
@@ -88,53 +88,56 @@
       <section>
         <h2 class="section-title">Type de compte</h2>
         <mat-card class="section-card">
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Type de compte</mat-label>
-            <mat-select formControlName="accountType">
-              @for (accountType of accountTypes; track accountType) {
-                <mat-option [value]="accountType">{{ accountType }}</mat-option>
+          <div class="field-block">
+            <p class="field-title">Type</p>
+            <mat-form-field appearance="outline" class="full-width account-type-field">
+              <mat-select formControlName="accountType" placeholder="Veuillez choisir un type" panelClass="account-type-panel">
+                @for (accountType of accountTypes; track accountType) {
+                  <mat-option [value]="accountType">{{ accountType }}</mat-option>
+                }
+              </mat-select>
+              @if (form.controls.accountType.touched && form.controls.accountType.hasError('required')) {
+                <mat-error>Veuillez choisir un type de compte.</mat-error>
               }
-            </mat-select>
-            @if (form.controls.accountType.touched && form.controls.accountType.hasError('required')) {
-              <mat-error>Veuillez choisir un type de compte.</mat-error>
-            }
-          </mat-form-field>
-
-          <p class="soft-note">Vous pourrez changer de type de compte à tout moment dans les paramètres.</p>
+            </mat-form-field>
+          </div>
 
           @if (isPremium) {
             <div class="radio-block">
               <p class="field-title">Choisissez votre abonnement</p>
-              <mat-radio-group class="radio-group" formControlName="premiumPlan">
+              <mat-radio-group class="radio-group vertical" formControlName="premiumPlan">
                 <mat-radio-button value="monthly">4 € / mois</mat-radio-button>
                 <mat-radio-button value="yearly">36 € / an (soit 3 € / mois)</mat-radio-button>
               </mat-radio-group>
+              <p class="soft-note premium-note">Vous pourrez changer de type de compte à tout moment dans les paramètres.</p>
               @if (form.controls.premiumPlan.touched && form.controls.premiumPlan.hasError('required')) {
                 <p class="field-error">Choisissez une fréquence d'abonnement.</p>
               }
             </div>
 
-            <div class="coupon-row">
-              <mat-form-field appearance="outline" class="coupon-field">
-                <mat-label>Coupon de réduction</mat-label>
-                <input matInput formControlName="couponCode" />
-              </mat-form-field>
+            <div class="coupon-block">
+              <div class="coupon-row">
+                <div class="field-block coupon-field">
+                  <p class="field-title">Coupon de réduction</p>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="couponCode" placeholder="Entrez un coupon" />
+                  </mat-form-field>
+                </div>
 
-              <button mat-flat-button type="button" class="action-button" (click)="validateCoupon()" [disabled]="isCouponLoading">
-                Valider
-              </button>
+                <app-main-button label="Ajouter" [disabled]="isCouponLoading" (pressed)="validateCoupon()"></app-main-button>
 
-              @if (isCouponLoading) {
-                <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+                @if (isCouponLoading) {
+                  <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+                }
+              </div>
+
+              @if (couponUiState === 'success') {
+                <p class="feedback coupon-feedback success">{{ couponFeedback }}</p>
+              }
+              @if (couponUiState === 'error') {
+                <p class="feedback coupon-feedback error">{{ couponFeedback }}</p>
               }
             </div>
-
-            @if (couponUiState === 'success') {
-              <p class="feedback success">{{ couponFeedback }}</p>
-            }
-            @if (couponUiState === 'error') {
-              <p class="feedback error">{{ couponFeedback }}</p>
-            }
           }
         </mat-card>
       </section>
@@ -144,7 +147,7 @@
         <mat-card class="section-card">
           <div class="radio-block">
             <p class="field-title">Savez-vous taper avec vos dix doigts au clavier ?</p>
-            <mat-radio-group class="radio-group" formControlName="tenFingers">
+            <mat-radio-group class="radio-group vertical" formControlName="tenFingers">
               <mat-radio-button [value]="true">Oui</mat-radio-button>
               <mat-radio-button [value]="false">Non</mat-radio-button>
             </mat-radio-group>
@@ -153,24 +156,30 @@
             }
           </div>
 
-          <mat-form-field appearance="outline" class="typing-speed-field">
-            <mat-label>Quelle est votre vitesse de frappe ? (mot/min)</mat-label>
-            <input matInput type="number" formControlName="typingSpeed" min="1" step="1" />
-            <mat-hint>
-              Testez-vous :
-              <a href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
-            </mat-hint>
+          <div class="field-block">
+            <p class="field-title">Quelle est votre vitesse de frappe ? (en mot/min)</p>
+            <p class="soft-note">
+              Vous ne connaissez pas votre vitesse de frappe ? 
+            </p>
+            <p class="soft-note speed-link-row">
+              <span>Testez-vous :</span>
+              <a class="soft-note-link" href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
+              <img class="link-pop-icon" src="/pop-icon.svg" alt="" aria-hidden="true" />
+            </p>
+            <mat-form-field appearance="outline" class="typing-speed-field">
+              <input matInput type="number" formControlName="typingSpeed" min="1" step="1" placeholder="40" />
+            </mat-form-field>
             @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
-              <mat-error>La vitesse de frappe est obligatoire.</mat-error>
+              <p class="field-error">La vitesse de frappe doit être un nombre.</p>
             }
             @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
-              <mat-error>Entrez un entier strictement positif.</mat-error>
+              <p class="field-error">Entrez un entier strictement positif.</p>
             }
-          </mat-form-field>
+          </div>
 
           <div class="radio-block">
             <p class="field-title">Avez-vous déjà utilisé un site de dactylo ?</p>
-            <mat-radio-group class="radio-group" formControlName="usedTypingSite">
+            <mat-radio-group class="radio-group vertical" formControlName="usedTypingSite">
               <mat-radio-button [value]="true">Oui</mat-radio-button>
               <mat-radio-button [value]="false">Non</mat-radio-button>
             </mat-radio-group>
@@ -180,22 +189,28 @@
           </div>
 
           @if (usedTypingSite) {
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Lequel ?</mat-label>
-              <mat-select formControlName="typingSite">
-                <mat-option value="RataType">RataType</mat-option>
-                <mat-option value="AgileFingers">AgileFingers</mat-option>
-              </mat-select>
+            <div class="field-block">
+              <p class="field-title">Lequel(s) ?</p>
+              <div class="typing-site-options">
+                @for (typingSite of typingSites; track typingSite) {
+                  <mat-checkbox
+                    [checked]="isTypingSiteSelected(typingSite)"
+                    (change)="toggleTypingSite(typingSite, $event.checked)"
+                  >
+                    {{ typingSite }}
+                  </mat-checkbox>
+                }
+              </div>
               @if (form.controls.typingSite.touched && form.controls.typingSite.hasError('required')) {
-                <mat-error>Veuillez sélectionner un site.</mat-error>
+                <p class="field-error">Veuillez sélectionner au moins un site.</p>
               }
-            </mat-form-field>
+            </div>
           }
         </mat-card>
       </section>
 
       <div class="submit-row">
-        <button mat-flat-button type="submit" class="action-button large">Créer le compte</button>
+        <app-main-button label="Créer le compte" type="submit" size="large"></app-main-button>
       </div>
 
       @if (submitFeedback) {

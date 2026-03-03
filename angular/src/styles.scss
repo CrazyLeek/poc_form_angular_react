@@ -16,6 +16,7 @@ body {
   --app-error: #e22626;
   --app-neutral: #B5B5B5;
   --app-placeholder: #B5B5B5;
+  --app-card-bg: #f5f5f7;
   --app-input-radius: 10px;
   --app-input-max-width: 400px;
   --mdc-typography-body1-font-family: 'Poppins', sans-serif;
@@ -48,6 +49,8 @@ body {
 }
 
 .mat-mdc-form-field {
+  --mat-form-field-container-height: 46px;
+  --mat-form-field-container-vertical-padding: 10px;
   max-width: var(--app-input-max-width);
   width: 100%;
 }
@@ -103,19 +106,60 @@ body {
   color: var(--app-error) !important;
 }
 
+.mat-mdc-radio-button .mdc-radio__outer-circle {
+  border-color: var(--app-neutral) !important;
+}
+
+.mat-mdc-radio-button .mdc-label {
+  font-size: 16px !important;
+}
+
 .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__outer-circle {
-  border-color: var(--app-primary) !important;
+  border-color: var(--app-neutral) !important;
 }
 
 .mat-mdc-radio-button .mdc-radio__inner-circle {
-  border-color: var(--app-primary) !important;
+  border-color: var(--app-neutral) !important;
 }
 
 .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__inner-circle {
   border-color: var(--app-primary) !important;
 }
 
+.mat-mdc-radio-button .mdc-radio__native-control:enabled:checked + .mdc-radio__background > .mdc-radio__inner-circle {
+  background-color: var(--app-primary) !important;
+  transform: scale(0.62) !important;
+}
+
 .mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element,
 .mat-mdc-radio-button .mat-mdc-focus-indicator::before {
-  background-color: color-mix(in srgb, var(--app-primary) 20%, transparent) !important;
+  background-color: color-mix(in srgb, var(--app-neutral) 20%, transparent) !important;
+}
+
+.mat-mdc-checkbox .mdc-checkbox__background {
+  border-color: var(--app-neutral) !important;
+  border-radius: 5px !important;
+}
+
+.mat-mdc-checkbox .mdc-label {
+  font-size: 16px !important;
+}
+
+.mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background,
+.mat-mdc-checkbox.mat-mdc-checkbox-indeterminate .mdc-checkbox__background {
+  background-color: var(--app-primary) !important;
+  border-color: var(--app-primary) !important;
+}
+
+.account-type-panel {
+  background-color: var(--app-card-bg) !important;
+}
+
+.account-type-panel .mat-mdc-option {
+  background-color: var(--app-card-bg) !important;
+}
+
+.account-type-panel .mat-mdc-option:hover:not(.mdc-list-item--disabled),
+.account-type-panel .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+  background-color: color-mix(in srgb, var(--app-card-bg) 75%, #d9d9df) !important;
 }

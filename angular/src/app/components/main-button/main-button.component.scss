@@ -1,0 +1,27 @@
+:host {
+  display: inline-block;
+}
+
+.main-button {
+  --mdc-filled-button-container-color: #067e72;
+  --mdc-filled-button-label-text-color: #fff;
+  border-radius: 999px;
+  box-shadow: 0 3px 10px rgba(18, 38, 63, 0.2);
+  font-family: 'Poppins', sans-serif;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  width: 180px;
+}
+
+.main-button:hover:not(:disabled),
+.main-button:focus-visible:not(:disabled) {
+  box-shadow: 0 6px 16px rgba(18, 38, 63, 0.28);
+  transform: translateY(-1px);
+}
+
+.main-button:disabled {
+  box-shadow: none;
+}
+
+.main-button.large {
+  min-height: 44px;
+}
