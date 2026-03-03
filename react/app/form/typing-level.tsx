@@ -46,7 +46,8 @@ export function TypingLevel(){
             <input
                 id={yesTenFingersHintId}
                 type="radio"
-                name="dixDoigts"
+                name="tenFingersAbility"
+                required
                 value="oui"
                 checked={form.dixDoigts === "oui"}
                 onChange={() => setField("dixDoigts", "oui")}
@@ -59,7 +60,7 @@ export function TypingLevel(){
             <input
                 id={noTenFingersHintId}
                 type="radio"
-                name="dixDoigts"
+                name="tenFingersAbility"
                 value="non"
                 checked={form.dixDoigts === "non"}
                 onChange={() => setField("dixDoigts", "non")}
@@ -81,6 +82,7 @@ export function TypingLevel(){
             onChange={(e) => setField("vitesse", e.target.value)}
             min={1}
             max={200}
+            required
             className="block px-2 py-1 mb-4 border border-gray-300 rounded-md focus:outline-mainColor"
           />
           {errors.vitesse && <div role="alert">{errors.vitesse}</div>}
@@ -99,8 +101,9 @@ export function TypingLevel(){
             <input
                 id={yesOtherSiteHintId}
                 type="radio"
-                name="dejaUtilise"
-                value="oui"
+                name="otherWebsite"
+                value="yes"
+                required
                 checked={form.dejaUtilise === "oui"}
                 onChange={() => setField("dejaUtilise", "oui")}
                 className="mr-8"
@@ -112,8 +115,8 @@ export function TypingLevel(){
             <input
                 id={noOtherSiteHintId}
                 type="radio"
-                name="dejaUtilise"
-                value="non"
+                name="otherWebsite"
+                value="no"
                 checked={form.dejaUtilise === "non"}
                 onChange={() => setField("dejaUtilise", "non")}
             />
@@ -126,32 +129,32 @@ export function TypingLevel(){
             
             <div className="flex flex-col gap-2 mt-2">
                 <label >
-                    <input type="checkbox" name="fruits" value="pommes" className="mr-2" />
+                    <input type="checkbox" name="websiteOption" value="AgileFingers" className="mr-2" />
                     AgileFingers
                 </label>
                 
                 <label>
-                    <input type="checkbox" name="fruits" value="bananes" className="mr-2"/>
+                    <input type="checkbox" name="websiteOption" value="Tapotons" className="mr-2"/>
                     Tapotons
                 </label>
                 
                 <label>
-                    <input type="checkbox" name="fruits" value="cerises" className="mr-2" />
+                    <input type="checkbox" name="websiteOption" value="Ratatype" className="mr-2" />
                     Ratatype
                 </label>
                 
                 <label>
-                    <input type="checkbox" name="fruits" value="fraises" className="mr-2"/>
+                    <input type="checkbox" name="websiteOption" value="TapTouche" className="mr-2"/>
                     TapTouche
                 </label>
 
                 <label>
-                    <input type="checkbox" name="fruits" value="fraises" className="mr-2"/>
+                    <input type="checkbox" name="websiteOption" value="EdClub" className="mr-2"/>
                     EdClub
                 </label>
 
                 <label>
-                    <input type="checkbox" name="fruits" value="fraises" className="mr-2"/>
+                    <input type="checkbox" name="websiteOption" value="Touch Typing Study" className="mr-2"/>
                     Touch Typing Study
                 </label>
 

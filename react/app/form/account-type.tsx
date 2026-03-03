@@ -90,9 +90,10 @@ export function AccountType(){
               <label className="block">
                 <input
                   type="radio"
-                  name="month"
+                  name="subscriptionType"
                   value="month"
                   checked={form.subscriptionType === "month"}
+                  required
                   onChange={() => setField("subscriptionType", "month")}
                   className="mx-2"
                 />
@@ -101,7 +102,7 @@ export function AccountType(){
               <label className="block">
                 <input
                   type="radio"
-                  name="year"
+                  name="subscriptionType"
                   value="year"
                   checked={form.subscriptionType === "year"}
                   onChange={() => setField("subscriptionType", "year")}

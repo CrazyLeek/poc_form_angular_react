@@ -44,7 +44,9 @@ export function PersonInfo() {
             id={lastNameHintId}
             type="text"
             value={form.lastName}
+            minLength={3}
             maxLength={40}
+            required
             onChange={(e) => setField("lastName", e.target.value)}
             placeholder="Dupont"
             className="block px-2 py-1 mb-4 border border-gray-300 rounded-md focus:outline-mainColor"
@@ -64,7 +66,9 @@ export function PersonInfo() {
             id={firstNameHintId}
             type="text"
             value={form.firstName}
+            minLength={3}
             maxLength={40}
+            required
             onChange={(e) => setField("firstName", e.target.value)}
             placeholder="Jean"
             className="block px-2 py-1 mb-4 border border-gray-300 rounded-md focus:outline-mainColor"
@@ -126,6 +130,7 @@ export function PersonInfo() {
           placeholder="30"
           min={1}
           max={120}
+          required
           className="block px-2 py-1 mb-4 border border-gray-300 rounded-md focus:outline-mainColor"
         />
         
@@ -144,6 +149,7 @@ export function PersonInfo() {
           id={emailHintId}
           type="email"
           value={form.email}
+          required
           placeholder="nom@example.com"
           onChange={(e) => setField("email", e.target.value)}
           className="block px-2 py-1 border border-gray-300 rounded-md focus:outline-mainColor"
