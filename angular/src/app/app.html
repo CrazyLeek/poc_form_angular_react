@@ -115,27 +115,29 @@
               }
             </div>
 
-            <div class="coupon-row">
-              <div class="field-block coupon-field">
-                <p class="field-title">Coupon de réduction</p>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="couponCode" placeholder="Entrez un coupon" />
-                </mat-form-field>
+            <div class="coupon-block">
+              <div class="coupon-row">
+                <div class="field-block coupon-field">
+                  <p class="field-title">Coupon de réduction</p>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="couponCode" placeholder="Entrez un coupon" />
+                  </mat-form-field>
+                </div>
+
+                <app-main-button label="Ajouter" [disabled]="isCouponLoading" (pressed)="validateCoupon()"></app-main-button>
+
+                @if (isCouponLoading) {
+                  <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+                }
               </div>
 
-              <app-main-button label="Ajouter" [disabled]="isCouponLoading" (pressed)="validateCoupon()"></app-main-button>
-
-              @if (isCouponLoading) {
-                <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+              @if (couponUiState === 'success') {
+                <p class="feedback coupon-feedback success">{{ couponFeedback }}</p>
+              }
+              @if (couponUiState === 'error') {
+                <p class="feedback coupon-feedback error">{{ couponFeedback }}</p>
               }
             </div>
-
-            @if (couponUiState === 'success') {
-              <p class="feedback success">{{ couponFeedback }}</p>
-            }
-            @if (couponUiState === 'error') {
-              <p class="feedback error">{{ couponFeedback }}</p>
-            }
           }
         </mat-card>
       </section>

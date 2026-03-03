@@ -219,6 +219,11 @@
   margin-bottom: 0;
 }
 
+.coupon-block {
+  display: grid;
+  gap: 0;
+}
+
 .coupon-field {
   flex: 0 0 auto;
 }
@@ -242,6 +247,11 @@
   font-size: 14px;
   font-weight: 500;
   margin: 4px 0 0;
+}
+
+.coupon-feedback {
+  font-size: 16px;
+  margin: 0 0 10px;
 }
 
 .feedback.success {

@@ -10,7 +10,7 @@ import { Observable, of, throwError, timer } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 const COUPON_ENDPOINT = '/api/coupon/validate';
-const NETWORK_LATENCY_MS = 700;
+const NETWORK_LATENCY_MS = 500;
 
 export const mockApiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,

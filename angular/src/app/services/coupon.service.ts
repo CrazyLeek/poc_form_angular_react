@@ -12,7 +12,7 @@ export interface CouponValidationResponse {
   providedIn: 'root',
 })
 export class CouponService {
-  private static readonly NETWORK_LATENCY_MS = 700;
+  private static readonly NETWORK_LATENCY_MS = 500;
 
   validateCoupon(code: string): Observable<CouponValidationResponse> {
     const normalizedCode = code.trim().toUpperCase();
