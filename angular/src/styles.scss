@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+:root {
+  --app-primary: #067e72;
+  --app-error: #e22626;
+  --app-neutral: #B5B5B5;
+  --app-placeholder: #B5B5B5;
+  --app-input-radius: 10px;
+  --app-input-max-width: 400px;
+  --mdc-typography-body1-font-family: 'Poppins', sans-serif;
+  --mdc-typography-body2-font-family: 'Poppins', sans-serif;
+  --mdc-typography-subtitle1-font-family: 'Poppins', sans-serif;
+  --mdc-typography-subtitle2-font-family: 'Poppins', sans-serif;
+  --mdc-typography-button-font-family: 'Poppins', sans-serif;
+  --mdc-theme-primary: var(--app-primary);
+  --mat-sys-primary: var(--app-primary);
+}
+
+.mat-mdc-form-field,
+.mat-mdc-input-element,
+.mat-mdc-select,
+.mat-mdc-option,
+.mat-toolbar,
+.mat-toolbar *,
+.mat-mdc-radio-button,
+.mat-mdc-radio-button *,
+.mat-mdc-checkbox,
+.mat-mdc-checkbox *,
+.mat-internal-form-field,
+.mat-internal-form-field *,
+.mdc-label,
+.mat-mdc-button,
+.mdc-floating-label,
+.mat-mdc-form-field-hint,
+.mat-mdc-form-field-error {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.mat-mdc-form-field {
+  max-width: var(--app-input-max-width);
+  width: 100%;
+}
+
+/* Use app primary color instead of Material default blue */
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: var(--app-primary) !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__leading,
+.mat-mdc-form-field .mdc-notched-outline__notch,
+.mat-mdc-form-field .mdc-notched-outline__trailing {
+  border-color: var(--app-neutral) !important;
+}
+
+.mat-mdc-form-field:hover .mdc-notched-outline__leading,
+.mat-mdc-form-field:hover .mdc-notched-outline__notch,
+.mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+  border-color: color-mix(in srgb, var(--app-neutral) 80%, #B5B5B5) !important;
+}
+
+.mdc-notched-outline__leading {
+  border-top-left-radius: var(--app-input-radius) !important;
+  border-bottom-left-radius: var(--app-input-radius) !important;
+}
+
+.mdc-notched-outline__trailing {
+  border-top-right-radius: var(--app-input-radius) !important;
+  border-bottom-right-radius: var(--app-input-radius) !important;
+}
+
+.mat-mdc-form-field .mdc-floating-label {
+  color: var(--app-neutral) !important;
+}
+
+.mat-mdc-input-element::placeholder,
+.mat-mdc-select-placeholder {
+  color: var(--app-placeholder) !important;
+  opacity: 1;
+}
+
+.mat-mdc-form-field-error {
+  color: var(--app-error) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-error-wrapper .mat-mdc-form-field-error {
+  color: var(--app-error) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__outer-circle {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-radio-button .mdc-radio__inner-circle {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__inner-circle {
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element,
+.mat-mdc-radio-button .mat-mdc-focus-indicator::before {
+  background-color: color-mix(in srgb, var(--app-primary) 20%, transparent) !important;
+}
