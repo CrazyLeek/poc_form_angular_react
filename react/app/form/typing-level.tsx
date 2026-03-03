@@ -14,7 +14,6 @@ export function TypingLevel(){
     const yesTenFingersHintId = useId();
     const noTenFingersHintId = useId();
     const speedTypingHintId = useId();
-    const otherSiteUsedHintId = useId();
     const yesOtherSiteHintId = useId();
     const noOtherSiteHintId = useId();
 
