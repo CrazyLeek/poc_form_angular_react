@@ -1,0 +1,56 @@
+<section>
+  <h2 class="section-title">Type de compte</h2>
+  <mat-card class="section-card">
+    <div class="field-block">
+      <p class="field-title">Type</p>
+      <mat-form-field appearance="outline" class="full-width account-type-field">
+        <mat-select formControlName="accountType" placeholder="Veuillez choisir un type" panelClass="account-type-panel">
+          @for (accountType of accountTypes; track accountType) {
+            <mat-option [value]="accountType">{{ accountType }}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.accountType.touched && form.controls.accountType.hasError('required')) {
+          <mat-error>Veuillez choisir un type de compte.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    @if (isPremium) {
+      <div class="radio-block">
+        <p class="field-title">Choisissez votre abonnement</p>
+        <mat-radio-group class="radio-group vertical" formControlName="premiumPlan">
+          <mat-radio-button value="monthly">4 € / mois</mat-radio-button>
+          <mat-radio-button value="yearly">36 € / an (soit 3 € / mois)</mat-radio-button>
+        </mat-radio-group>
+        <p class="soft-note premium-note">Vous pourrez changer de type de compte à tout moment dans les paramètres.</p>
+        @if (form.controls.premiumPlan.touched && form.controls.premiumPlan.hasError('required')) {
+          <p class="field-error">Choisissez une fréquence d'abonnement.</p>
+        }
+      </div>
+
+      <div class="coupon-block">
+        <div class="coupon-row">
+          <div class="field-block coupon-field">
+            <p class="field-title">Coupon de réduction</p>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="couponCode" placeholder="Entrez un coupon" />
+            </mat-form-field>
+          </div>
+
+          <app-main-button label="Ajouter" [disabled]="isCouponLoading" (pressed)="onValidateCoupon()"></app-main-button>
+
+          @if (isCouponLoading) {
+            <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+          }
+        </div>
+
+        @if (couponUiState === 'success') {
+          <p class="feedback coupon-feedback success">{{ couponFeedback }}</p>
+        }
+        @if (couponUiState === 'error') {
+          <p class="feedback coupon-feedback error">{{ couponFeedback }}</p>
+        }
+      </div>
+    }
+  </mat-card>
+</section>

@@ -1,4 +1,4 @@
-:host {
+app-root {
   --brand-teal: #067e72;
   --bg-beige: #f3efea;
   --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
@@ -16,43 +16,6 @@
 .page-shell {
   background: linear-gradient(180deg, #f8f4ef 0%, var(--bg-beige) 55%, #f2eeea 100%);
   min-height: 100vh;
-}
-
-.top-bar {
-  background: linear-gradient(90deg, #077c77 0%, #06757a 100%);
-  color: #fff;
-  height: 100px;
-  min-height: 100px;
-  padding: 0;
-  position: sticky;
-  top: 0;
-  z-index: 5;
-}
-
-.top-bar-inner {
-  align-items: center;
-  display: flex;
-  gap: 12px;
-  margin: 0 auto;
-  max-width: 1040px;
-  padding: 0 20px;
-  width: 100%;
-}
-
-.brand-logo {
-  filter: invert(1);
-  height: 90px;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  width: 90px;
-}
-
-.brand-name {
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
 }
 
 .content-wrap {
@@ -103,7 +66,7 @@
 .section-card {
   background-color: var(--app-card-bg);
   border-radius: 16px;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--field-shadow) !important;
   display: grid;
   gap: 22px;
   max-width: var(--section-max-width);
@@ -164,26 +127,26 @@
   gap: 16px;
 }
 
-:host ::ng-deep .radio-group .mat-mdc-radio-button .mdc-radio__background {
+.radio-group .mat-mdc-radio-button .mdc-radio__background {
   border-radius: 50%;
   box-shadow: var(--field-shadow);
   transition: box-shadow 0.2s ease;
 }
 
-:host ::ng-deep .radio-group .mat-mdc-radio-button:hover .mdc-radio__background,
-:host ::ng-deep .radio-group .mat-mdc-radio-button.cdk-focused .mdc-radio__background,
-:host ::ng-deep .radio-group .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background {
+.radio-group .mat-mdc-radio-button:hover .mdc-radio__background,
+.radio-group .mat-mdc-radio-button.cdk-focused .mdc-radio__background,
+.radio-group .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background {
   box-shadow: var(--field-shadow-strong);
 }
 
-:host ::ng-deep .typing-site-options .mat-mdc-checkbox .mdc-checkbox__background {
+.typing-site-options .mat-mdc-checkbox .mdc-checkbox__background {
   box-shadow: var(--field-shadow);
   transition: box-shadow 0.2s ease;
 }
 
-:host ::ng-deep .typing-site-options .mat-mdc-checkbox:hover .mdc-checkbox__background,
-:host ::ng-deep .typing-site-options .mat-mdc-checkbox.cdk-focused .mdc-checkbox__background,
-:host ::ng-deep .typing-site-options .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background {
+.typing-site-options .mat-mdc-checkbox:hover .mdc-checkbox__background,
+.typing-site-options .mat-mdc-checkbox.cdk-focused .mdc-checkbox__background,
+.typing-site-options .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background {
   box-shadow: var(--field-shadow-strong);
 }
 
@@ -263,15 +226,10 @@
   gap: 8px;
 }
 
-:host ::ng-deep mat-form-field .mat-mdc-text-field-wrapper {
+mat-form-field .mat-mdc-text-field-wrapper {
   border-radius: var(--input-radius);
   box-shadow: var(--field-shadow);
   transition: box-shadow 0.2s ease;
-}
-
-:host ::ng-deep mat-form-field.mat-focused .mat-mdc-text-field-wrapper,
-:host ::ng-deep mat-form-field:hover .mat-mdc-text-field-wrapper {
-  box-shadow: var(--field-shadow-strong);
 }
 
 .field-error {
@@ -305,24 +263,6 @@
 }
 
 @media (max-width: 780px) {
-  .top-bar {
-    height: 74px;
-    min-height: 74px;
-  }
-
-  .top-bar-inner {
-    padding: 0 12px;
-  }
-
-  .brand-logo {
-    height: 44px;
-    width: 44px;
-  }
-
-  .brand-name {
-    font-size: 30px;
-  }
-
   .content-wrap {
     padding: 20px 12px 32px;
   }
