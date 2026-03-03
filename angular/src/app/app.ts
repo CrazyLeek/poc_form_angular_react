@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -17,7 +18,7 @@ import { blockedEmailDomainValidator, positiveIntegerValidator } from './validat
 export type AccountType = 'Gratuit' | 'Premium';
 export type Gender = 'Homme' | 'Femme' | 'Autre';
 export type PremiumPlan = 'monthly' | 'yearly';
-export type TypingSite = 'RataType' | 'AgileFingers';
+export type TypingSite = 'AgileFinger' | 'Tapotons' | 'Ratatype' | 'TapTouche' | 'EdClub' | 'Touch Typing Study';
 export type CouponUiState = 'idle' | 'loading' | 'success' | 'error';
 
 export interface SignupFormPayload {
@@ -32,7 +33,7 @@ export interface SignupFormPayload {
   tenFingers: boolean;
   typingSpeed: number;
   usedTypingSite: boolean;
-  typingSite: TypingSite | null;
+  typingSite: TypingSite[] | null;
 }
 
 @Component({
@@ -41,6 +42,7 @@ export interface SignupFormPayload {
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
@@ -56,6 +58,7 @@ export class App {
 
   readonly accountTypes: AccountType[] = ['Gratuit', 'Premium'];
   readonly genders: Gender[] = ['Homme', 'Femme', 'Autre'];
+  readonly typingSites: TypingSite[] = ['AgileFinger', 'Tapotons', 'Ratatype', 'TapTouche', 'EdClub', 'Touch Typing Study'];
 
   readonly form = new FormGroup({
     lastName: new FormControl('', {
@@ -92,7 +95,9 @@ export class App {
     usedTypingSite: new FormControl<boolean | null>(null, {
       validators: [Validators.required],
     }),
-    typingSite: new FormControl<TypingSite | null>(null),
+    typingSite: new FormControl<TypingSite[]>([], {
+      nonNullable: true,
+    }),
   });
 
   couponUiState: CouponUiState = 'idle';
@@ -115,6 +120,17 @@ export class App {
 
   get isCouponLoading(): boolean {
     return this.couponUiState === 'loading';
+  }
+
+  isTypingSiteSelected(site: TypingSite): boolean {
+    return this.form.controls.typingSite.value.includes(site);
+  }
+
+  toggleTypingSite(site: TypingSite, checked: boolean): void {
+    const currentSites = this.form.controls.typingSite.value;
+    const nextSites = checked ? [...currentSites, site] : currentSites.filter((currentSite) => currentSite !== site);
+    this.form.controls.typingSite.setValue(nextSites);
+    this.form.controls.typingSite.markAsTouched();
   }
 
   validateCoupon(): void {
@@ -222,7 +238,7 @@ export class App {
           typingSiteControl.setValidators([Validators.required]);
         } else {
           typingSiteControl.clearValidators();
-          typingSiteControl.setValue(null, { emitEvent: false });
+          typingSiteControl.setValue([], { emitEvent: false });
         }
 
         typingSiteControl.updateValueAndValidity({ emitEvent: false });

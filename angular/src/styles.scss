@@ -125,3 +125,14 @@ body {
 .mat-mdc-radio-button .mat-mdc-focus-indicator::before {
   background-color: color-mix(in srgb, var(--app-neutral) 20%, transparent) !important;
 }
+
+.mat-mdc-checkbox .mdc-checkbox__background {
+  border-color: var(--app-neutral) !important;
+  border-radius: 5px !important;
+}
+
+.mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background,
+.mat-mdc-checkbox.mat-mdc-checkbox-indeterminate .mdc-checkbox__background {
+  background-color: var(--app-primary) !important;
+  border-color: var(--app-primary) !important;
+}

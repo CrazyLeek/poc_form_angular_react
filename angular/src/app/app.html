@@ -58,13 +58,13 @@
             <label class="field-title" for="age">Age</label>
             <mat-form-field appearance="outline">
               <input id="age" matInput type="number" formControlName="age" min="1" step="1" placeholder="26" />
-              @if (form.controls.age.touched && form.controls.age.hasError('required')) {
-                <mat-error>L'âge est obligatoire.</mat-error>
-              }
-              @if (form.controls.age.touched && form.controls.age.hasError('positiveInteger')) {
-                <mat-error>Entrez un entier strictement positif.</mat-error>
-              }
             </mat-form-field>
+            @if (form.controls.age.touched && form.controls.age.hasError('required')) {
+              <p class="field-error">L'âge est obligatoire.</p>
+            }
+            @if (form.controls.age.touched && form.controls.age.hasError('positiveInteger')) {
+              <p class="field-error">Entrez un entier strictement positif.</p>
+            }
           </div>
 
           <div class="field-block email-field">
@@ -157,20 +157,24 @@
           </div>
 
           <div class="field-block">
-            <p class="field-title">Quelle est votre vitesse de frappe ? (mot/min)</p>
+            <p class="field-title">Quelle est votre vitesse de frappe ? (en mot/min)</p>
+            <p class="soft-note">
+              Vous ne connaissez pas votre vitesse de frappe ? 
+            </p>
+            <p class="soft-note speed-link-row">
+              <span>Testez-vous :</span>
+              <a class="soft-note-link" href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
+              <img class="link-pop-icon" src="/pop-icon.svg" alt="" aria-hidden="true" />
+            </p>
             <mat-form-field appearance="outline" class="typing-speed-field">
               <input matInput type="number" formControlName="typingSpeed" min="1" step="1" placeholder="40" />
-              <mat-hint>
-                Testez-vous :
-                <a href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
-              </mat-hint>
-              @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
-                <mat-error>La vitesse de frappe est obligatoire.</mat-error>
-              }
-              @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
-                <mat-error>Entrez un entier strictement positif.</mat-error>
-              }
             </mat-form-field>
+            @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
+              <p class="field-error">La vitesse de frappe est obligatoire.</p>
+            }
+            @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
+              <p class="field-error">Entrez un entier strictement positif.</p>
+            }
           </div>
 
           <div class="radio-block">
@@ -187,15 +191,19 @@
           @if (usedTypingSite) {
             <div class="field-block">
               <p class="field-title">Lequel ?</p>
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-select formControlName="typingSite" placeholder="Sélectionnez un site">
-                  <mat-option value="RataType">RataType</mat-option>
-                  <mat-option value="AgileFingers">AgileFingers</mat-option>
-                </mat-select>
-                @if (form.controls.typingSite.touched && form.controls.typingSite.hasError('required')) {
-                  <mat-error>Veuillez sélectionner un site.</mat-error>
+              <div class="typing-site-options">
+                @for (typingSite of typingSites; track typingSite) {
+                  <mat-checkbox
+                    [checked]="isTypingSiteSelected(typingSite)"
+                    (change)="toggleTypingSite(typingSite, $event.checked)"
+                  >
+                    {{ typingSite }}
+                  </mat-checkbox>
                 }
-              </mat-form-field>
+              </div>
+              @if (form.controls.typingSite.touched && form.controls.typingSite.hasError('required')) {
+                <p class="field-error">Veuillez sélectionner au moins un site.</p>
+              }
             </div>
           }
         </mat-card>

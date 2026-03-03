@@ -105,6 +105,7 @@
   max-width: var(--section-max-width);
   padding: 50px;
   width: 80%;
+  margin: 0 0 100px;
 }
 
 .field-grid {
@@ -163,8 +164,25 @@
 
 .soft-note {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 16px;
   margin: 0;
+}
+
+.soft-note-link {
+  color: var(--app-primary);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+.speed-link-row {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.link-pop-icon {
+  height: 14px;
+  width: 14px;
 }
 
 .premium-note {
@@ -205,7 +223,12 @@
 }
 
 .typing-speed-field {
-  width: min(520px, 100%);
+  width: min(100px, 100%);
+}
+
+.typing-site-options {
+  display: grid;
+  gap: 8px;
 }
 
 .field-error {
