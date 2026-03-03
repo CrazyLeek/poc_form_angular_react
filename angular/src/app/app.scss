@@ -2,6 +2,9 @@
   --brand-teal: #067e72;
   --bg-beige: #f3efea;
   --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  --field-shadow: 0 2px 8px rgba(18, 38, 63, 0.12);
+  --field-shadow-strong: 0 4px 12px rgba(18, 38, 63, 0.18);
+  --input-radius: 12px;
   --section-max-width: 900px;
   --text-main: #2e2e2e;
   --text-muted: #5b5b5b;
@@ -161,6 +164,29 @@
   gap: 16px;
 }
 
+:host ::ng-deep .radio-group .mat-mdc-radio-button .mdc-radio__background {
+  border-radius: 50%;
+  box-shadow: var(--field-shadow);
+  transition: box-shadow 0.2s ease;
+}
+
+:host ::ng-deep .radio-group .mat-mdc-radio-button:hover .mdc-radio__background,
+:host ::ng-deep .radio-group .mat-mdc-radio-button.cdk-focused .mdc-radio__background,
+:host ::ng-deep .radio-group .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background {
+  box-shadow: var(--field-shadow-strong);
+}
+
+:host ::ng-deep .typing-site-options .mat-mdc-checkbox .mdc-checkbox__background {
+  box-shadow: var(--field-shadow);
+  transition: box-shadow 0.2s ease;
+}
+
+:host ::ng-deep .typing-site-options .mat-mdc-checkbox:hover .mdc-checkbox__background,
+:host ::ng-deep .typing-site-options .mat-mdc-checkbox.cdk-focused .mdc-checkbox__background,
+:host ::ng-deep .typing-site-options .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  box-shadow: var(--field-shadow-strong);
+}
+
 .radio-group.vertical {
   align-items: flex-start;
   flex-direction: column;
@@ -235,6 +261,17 @@
 .typing-site-options {
   display: grid;
   gap: 8px;
+}
+
+:host ::ng-deep mat-form-field .mat-mdc-text-field-wrapper {
+  border-radius: var(--input-radius);
+  box-shadow: var(--field-shadow);
+  transition: box-shadow 0.2s ease;
+}
+
+:host ::ng-deep mat-form-field.mat-focused .mat-mdc-text-field-wrapper,
+:host ::ng-deep mat-form-field:hover .mat-mdc-text-field-wrapper {
+  box-shadow: var(--field-shadow-strong);
 }
 
 .field-error {
