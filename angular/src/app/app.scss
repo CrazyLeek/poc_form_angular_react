@@ -98,6 +98,7 @@
 }
 
 .section-card {
+  background-color: var(--app-card-bg);
   border-radius: 16px;
   box-shadow: var(--card-shadow);
   display: grid;
@@ -136,6 +137,10 @@
 
 .full-width {
   width: 100%;
+}
+
+.account-type-field .mat-mdc-text-field-wrapper {
+  background-color: var(--app-card-bg);
 }
 
 .field-title {

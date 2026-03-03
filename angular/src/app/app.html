@@ -90,8 +90,8 @@
         <mat-card class="section-card">
           <div class="field-block">
             <p class="field-title">Type</p>
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-select formControlName="accountType" placeholder="Veuillez choisir un type">
+            <mat-form-field appearance="outline" class="full-width account-type-field">
+              <mat-select formControlName="accountType" placeholder="Veuillez choisir un type" panelClass="account-type-panel">
                 @for (accountType of accountTypes; track accountType) {
                   <mat-option [value]="accountType">{{ accountType }}</mat-option>
                 }
@@ -190,7 +190,7 @@
 
           @if (usedTypingSite) {
             <div class="field-block">
-              <p class="field-title">Lequel ?</p>
+              <p class="field-title">Lequel(s) ?</p>
               <div class="typing-site-options">
                 @for (typingSite of typingSites; track typingSite) {
                   <mat-checkbox
