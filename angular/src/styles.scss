@@ -110,6 +110,10 @@ body {
   border-color: var(--app-neutral) !important;
 }
 
+.mat-mdc-radio-button .mdc-label {
+  font-size: 16px !important;
+}
+
 .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__outer-circle {
   border-color: var(--app-neutral) !important;
 }
@@ -119,7 +123,12 @@ body {
 }
 
 .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__inner-circle {
-  border-color: var(--app-neutral) !important;
+  border-color: var(--app-primary) !important;
+}
+
+.mat-mdc-radio-button .mdc-radio__native-control:enabled:checked + .mdc-radio__background > .mdc-radio__inner-circle {
+  background-color: var(--app-primary) !important;
+  transform: scale(0.62) !important;
 }
 
 .mat-mdc-radio-button.mat-mdc-radio-checked .mat-ripple-element,
@@ -130,6 +139,10 @@ body {
 .mat-mdc-checkbox .mdc-checkbox__background {
   border-color: var(--app-neutral) !important;
   border-radius: 5px !important;
+}
+
+.mat-mdc-checkbox .mdc-label {
+  font-size: 16px !important;
 }
 
 .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background,
