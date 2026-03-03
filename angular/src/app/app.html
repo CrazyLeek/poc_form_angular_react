@@ -170,7 +170,7 @@
               <input matInput type="number" formControlName="typingSpeed" min="1" step="1" placeholder="40" />
             </mat-form-field>
             @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
-              <p class="field-error">La vitesse de frappe est obligatoire.</p>
+              <p class="field-error">La vitesse de frappe doit être un nombre.</p>
             }
             @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
               <p class="field-error">Entrez un entier strictement positif.</p>
