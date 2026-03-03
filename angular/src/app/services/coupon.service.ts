@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface CouponValidationResponse {
@@ -13,9 +12,32 @@ export interface CouponValidationResponse {
   providedIn: 'root',
 })
 export class CouponService {
-  private readonly httpClient = inject(HttpClient);
+  private static readonly NETWORK_LATENCY_MS = 700;
 
   validateCoupon(code: string): Observable<CouponValidationResponse> {
-    return this.httpClient.post<CouponValidationResponse>('/api/coupon/validate', { code });
+    const normalizedCode = code.trim().toUpperCase();
+
+    const response: CouponValidationResponse =
+      normalizedCode === 'SOLUTAP2026'
+        ? {
+            valid: true,
+            code: normalizedCode,
+            message: 'Code promo appliqué !',
+            discountPercent: 25,
+          }
+        : {
+            valid: false,
+            code: normalizedCode,
+            message: 'Code promo invalide.',
+          };
+
+    return new Observable<CouponValidationResponse>((subscriber) => {
+      const timerId = setTimeout(() => {
+        subscriber.next(response);
+        subscriber.complete();
+      }, CouponService.NETWORK_LATENCY_MS);
+
+      return () => clearTimeout(timerId);
+    });
   }
 }

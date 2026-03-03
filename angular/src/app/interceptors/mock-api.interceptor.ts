@@ -16,7 +16,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> => {
-  if (req.method !== 'POST' || req.url !== COUPON_ENDPOINT) {
+  if (req.method !== 'POST' || !isCouponEndpoint(req.url)) {
     return next(req);
   }
 
@@ -52,19 +52,30 @@ export const mockApiInterceptor: HttpInterceptorFn = (
         );
       }
 
-      return throwError(
-        () =>
-          new HttpErrorResponse({
-            status: 400,
-            statusText: 'Bad Request',
-            error: {
-              message: 'Code promo invalide.',
-            },
-          }),
+      return of(
+        new HttpResponse({
+          status: 200,
+          body: {
+            valid: false,
+            code: normalizedCode,
+            message: 'Code promo invalide.',
+          },
+        }),
       );
     }),
   );
 };
+
+function isCouponEndpoint(url: string): boolean {
+  try {
+    const parsedUrl = new URL(url, window.location.origin);
+    const normalizedPath = parsedUrl.pathname.replace(/\/+$/, '');
+    return normalizedPath === COUPON_ENDPOINT;
+  } catch {
+    const normalizedUrl = url.split('?')[0].replace(/\/+$/, '');
+    return normalizedUrl === COUPON_ENDPOINT || normalizedUrl.endsWith(COUPON_ENDPOINT);
+  }
+}
 
 function extractCouponCode(body: unknown): string {
   if (typeof body !== 'object' || body === null || !('code' in body)) {

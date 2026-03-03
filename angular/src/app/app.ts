@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -55,6 +55,7 @@ export interface SignupFormPayload {
 })
 export class App {
   private readonly couponService = inject(CouponService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   readonly accountTypes: AccountType[] = ['Gratuit', 'Premium'];
   readonly genders: Gender[] = ['Homme', 'Femme', 'Autre'];
@@ -148,18 +149,29 @@ export class App {
 
     this.couponUiState = 'loading';
     this.couponFeedback = '';
+    const loadingSafetyTimeout = setTimeout(() => {
+      if (this.couponUiState === 'loading') {
+        this.couponUiState = 'error';
+        this.couponFeedback = 'Code promo invalide.';
+        this.cdr.markForCheck();
+      }
+    }, 3000);
 
     this.couponService
       .validateCoupon(code)
       .pipe(take(1))
       .subscribe({
         next: (response) => {
+          clearTimeout(loadingSafetyTimeout);
           this.couponUiState = response.valid ? 'success' : 'error';
           this.couponFeedback = response.message;
+          this.cdr.markForCheck();
         },
         error: (error: HttpErrorResponse) => {
+          clearTimeout(loadingSafetyTimeout);
           this.couponUiState = 'error';
           this.couponFeedback = this.resolveCouponErrorMessage(error);
+          this.cdr.markForCheck();
         },
       });
   }
