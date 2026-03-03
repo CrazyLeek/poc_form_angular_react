@@ -3,6 +3,8 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-mainColor: #077d77;
 }
 
 html,
@@ -13,3 +15,4 @@ body {
     color-scheme: dark;
   }
 }
+

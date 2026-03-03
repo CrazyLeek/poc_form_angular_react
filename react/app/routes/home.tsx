@@ -9,5 +9,22 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Form />;
+  return (
+
+    <>
+
+      <div className="w-screen bg-mainColor">
+
+        <p> salut</p>
+      </div>
+      <div className="flex items-center justify-center w-screen bg-orange-200">
+        <Form />
+      </div>
+    
+    </>
+    
+      
+    )
+
+    ;
 }
