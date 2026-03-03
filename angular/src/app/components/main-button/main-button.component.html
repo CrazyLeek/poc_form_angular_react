@@ -1,0 +1,10 @@
+<button
+  mat-flat-button
+  class="main-button"
+  [class.large]="size === 'large'"
+  [attr.type]="type"
+  [disabled]="disabled"
+  (click)="onPressed()"
+>
+  {{ label }}
+</button>
