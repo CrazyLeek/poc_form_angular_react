@@ -184,6 +184,7 @@
   align-items: center;
   display: inline-flex;
   gap: 6px;
+  margin-bottom: 8px;
 }
 
 .link-pop-icon {
@@ -206,7 +207,12 @@
 .coupon-row {
   align-items: center;
   display: flex;
-  gap: 12px;
+  gap: 8px;
+}
+
+.coupon-row app-main-button {
+  align-self: center;
+  margin-top: 12px;
 }
 
 .coupon-row mat-form-field {
@@ -214,7 +220,7 @@
 }
 
 .coupon-field {
-  flex: 1;
+  flex: 0 0 auto;
 }
 
 .typing-speed-field {

@@ -123,7 +123,7 @@
                 </mat-form-field>
               </div>
 
-              <app-main-button label="Valider" [disabled]="isCouponLoading" (pressed)="validateCoupon()"></app-main-button>
+              <app-main-button label="Ajouter" [disabled]="isCouponLoading" (pressed)="validateCoupon()"></app-main-button>
 
               @if (isCouponLoading) {
                 <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
