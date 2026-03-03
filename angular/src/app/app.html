@@ -60,7 +60,7 @@
               <input id="age" matInput type="number" formControlName="age" min="1" step="1" placeholder="26" />
             </mat-form-field>
             @if (form.controls.age.touched && form.controls.age.hasError('required')) {
-              <p class="field-error">L'âge est obligatoire.</p>
+              <p class="field-error">L'âge doit être un nombre.</p>
             }
             @if (form.controls.age.touched && form.controls.age.hasError('positiveInteger')) {
               <p class="field-error">Entrez un entier strictement positif.</p>
