@@ -1,17 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewEncapsulation, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { startWith, take } from 'rxjs';
+import { AccountTypeSectionComponent } from './components/account-type-section/account-type-section.component';
 import { MainButtonComponent } from './components/main-button/main-button.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { PersonalInfoSectionComponent } from './components/personal-info-section/personal-info-section.component';
+import { TypingLevelSectionComponent } from './components/typing-level-section/typing-level-section.component';
 import { CouponService } from './services/coupon.service';
 import { blockedEmailDomainValidator, positiveIntegerValidator } from './validators/form.validators';
 
@@ -36,22 +32,36 @@ export interface SignupFormPayload {
   typingSite: TypingSite[] | null;
 }
 
+type SignupFormModel = {
+  lastName: FormControl<string>;
+  firstName: FormControl<string>;
+  gender: FormControl<Gender | null>;
+  age: FormControl<number | null>;
+  email: FormControl<string>;
+  accountType: FormControl<AccountType | null>;
+  premiumPlan: FormControl<PremiumPlan | null>;
+  couponCode: FormControl<string>;
+  tenFingers: FormControl<boolean | null>;
+  typingSpeed: FormControl<number | null>;
+  usedTypingSite: FormControl<boolean | null>;
+  typingSite: FormControl<TypingSite[]>;
+};
+
+export type SignupFormGroup = FormGroup<SignupFormModel>;
+
 @Component({
   selector: 'app-root',
   imports: [
     ReactiveFormsModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatToolbarModule,
     MainButtonComponent,
+    PageHeaderComponent,
+    PersonalInfoSectionComponent,
+    AccountTypeSectionComponent,
+    TypingLevelSectionComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class App {
   private readonly couponService = inject(CouponService);
@@ -61,7 +71,7 @@ export class App {
   readonly genders: Gender[] = ['Homme', 'Femme', 'Autre'];
   readonly typingSites: TypingSite[] = ['AgileFinger', 'Tapotons', 'Ratatype', 'TapTouche', 'EdClub', 'Touch Typing Study'];
 
-  readonly form = new FormGroup({
+  readonly form: SignupFormGroup = new FormGroup({
     lastName: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.maxLength(40)],
@@ -123,15 +133,15 @@ export class App {
     return this.couponUiState === 'loading';
   }
 
-  isTypingSiteSelected(site: TypingSite): boolean {
-    return this.form.controls.typingSite.value.includes(site);
-  }
-
   toggleTypingSite(site: TypingSite, checked: boolean): void {
     const currentSites = this.form.controls.typingSite.value;
     const nextSites = checked ? [...currentSites, site] : currentSites.filter((currentSite) => currentSite !== site);
     this.form.controls.typingSite.setValue(nextSites);
     this.form.controls.typingSite.markAsTouched();
+  }
+
+  onTypingSiteToggled(event: { site: TypingSite; checked: boolean }): void {
+    this.toggleTypingSite(event.site, event.checked);
   }
 
   validateCoupon(): void {

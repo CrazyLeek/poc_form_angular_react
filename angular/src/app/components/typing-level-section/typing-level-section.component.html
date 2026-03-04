@@ -1,0 +1,64 @@
+<section>
+  <h2 class="section-title">Niveau en dactylo</h2>
+  <mat-card class="section-card">
+    <div class="radio-block">
+      <p class="field-title">Savez-vous taper avec vos dix doigts au clavier ?</p>
+      <mat-radio-group class="radio-group vertical" formControlName="tenFingers">
+        <mat-radio-button [value]="true">Oui</mat-radio-button>
+        <mat-radio-button [value]="false">Non</mat-radio-button>
+      </mat-radio-group>
+      @if (form.controls.tenFingers.touched && form.controls.tenFingers.hasError('required')) {
+        <p class="field-error">Ce champ est obligatoire.</p>
+      }
+    </div>
+
+    <div class="field-block">
+      <p class="field-title">Quelle est votre vitesse de frappe ? (en mot/min)</p>
+      <p class="soft-note">Vous ne connaissez pas votre vitesse de frappe ?</p>
+      <p class="soft-note speed-link-row">
+        <span>Testez-vous :</span>
+        <a class="soft-note-link" href="https://tapotons.fr/test-vitesse-de-frappe/" target="_blank" rel="noreferrer">tapotons.fr/test-vitesse-de-frappe</a>
+        <img class="link-pop-icon" src="/pop-icon.svg" alt="" aria-hidden="true" />
+      </p>
+      <mat-form-field appearance="outline" class="typing-speed-field">
+        <input matInput type="number" formControlName="typingSpeed" min="1" step="1" placeholder="40" />
+      </mat-form-field>
+      @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('required')) {
+        <p class="field-error">La vitesse de frappe doit être un nombre.</p>
+      }
+      @if (form.controls.typingSpeed.touched && form.controls.typingSpeed.hasError('positiveInteger')) {
+        <p class="field-error">Entrez un entier strictement positif.</p>
+      }
+    </div>
+
+    <div class="radio-block">
+      <p class="field-title">Avez-vous déjà utilisé un site de dactylo ?</p>
+      <mat-radio-group class="radio-group vertical" formControlName="usedTypingSite">
+        <mat-radio-button [value]="true">Oui</mat-radio-button>
+        <mat-radio-button [value]="false">Non</mat-radio-button>
+      </mat-radio-group>
+      @if (form.controls.usedTypingSite.touched && form.controls.usedTypingSite.hasError('required')) {
+        <p class="field-error">Ce champ est obligatoire.</p>
+      }
+    </div>
+
+    @if (usedTypingSite) {
+      <div class="field-block">
+        <p class="field-title">Lequel(s) ?</p>
+        <div class="typing-site-options">
+          @for (typingSite of typingSites; track typingSite) {
+            <mat-checkbox
+              [checked]="form.controls.typingSite.value.includes(typingSite)"
+              (change)="onTypingSiteToggle(typingSite, $event.checked)"
+            >
+              {{ typingSite }}
+            </mat-checkbox>
+          }
+        </div>
+        @if (form.controls.typingSite.touched && form.controls.typingSite.hasError('required')) {
+          <p class="field-error">Veuillez sélectionner au moins un site.</p>
+        }
+      </div>
+    }
+  </mat-card>
+</section>

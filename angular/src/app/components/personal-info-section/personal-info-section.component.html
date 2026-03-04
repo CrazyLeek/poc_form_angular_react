@@ -1,0 +1,73 @@
+<section>
+  <h2 class="section-title">Informations personnelles</h2>
+  <mat-card class="section-card">
+    <div class="field-grid">
+      <div class="field-block">
+        <label class="field-title" for="lastName">Nom</label>
+        <mat-form-field appearance="outline">
+          <input id="lastName" matInput formControlName="lastName" maxlength="40" placeholder="Dupont" />
+          @if (form.controls.lastName.touched && form.controls.lastName.hasError('required')) {
+            <mat-error>Le nom est obligatoire.</mat-error>
+          }
+          @if (form.controls.lastName.touched && form.controls.lastName.hasError('maxlength')) {
+            <mat-error>Le nom ne peut pas dépasser 40 caractères.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="field-block">
+        <label class="field-title" for="firstName">Prénom</label>
+        <mat-form-field appearance="outline">
+          <input id="firstName" matInput formControlName="firstName" maxlength="40" placeholder="Jean" />
+          @if (form.controls.firstName.touched && form.controls.firstName.hasError('required')) {
+            <mat-error>Le prénom est obligatoire.</mat-error>
+          }
+          @if (form.controls.firstName.touched && form.controls.firstName.hasError('maxlength')) {
+            <mat-error>Le prénom ne peut pas dépasser 40 caractères.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="radio-block">
+      <p class="field-title">Genre</p>
+      <mat-radio-group class="radio-group vertical" formControlName="gender">
+        @for (gender of genders; track gender) {
+          <mat-radio-button [value]="gender">{{ gender }}</mat-radio-button>
+        }
+      </mat-radio-group>
+      @if (form.controls.gender.touched && form.controls.gender.hasError('required')) {
+        <p class="field-error">Le genre est obligatoire.</p>
+      }
+    </div>
+
+    <div class="field-block age-field">
+      <label class="field-title" for="age">Age</label>
+      <mat-form-field appearance="outline">
+        <input id="age" matInput type="number" formControlName="age" min="1" step="1" placeholder="26" />
+      </mat-form-field>
+      @if (form.controls.age.touched && form.controls.age.hasError('required')) {
+        <p class="field-error">L'âge doit être un nombre.</p>
+      }
+      @if (form.controls.age.touched && form.controls.age.hasError('positiveInteger')) {
+        <p class="field-error">Entrez un entier strictement positif.</p>
+      }
+    </div>
+
+    <div class="field-block email-field">
+      <label class="field-title" for="email">E-mail</label>
+      <mat-form-field appearance="outline">
+        <input id="email" matInput type="email" formControlName="email" placeholder="dupont@yopmail.com" />
+        @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+          <mat-error>L'adresse e-mail est obligatoire.</mat-error>
+        }
+        @if (form.controls.email.touched && form.controls.email.hasError('email')) {
+          <mat-error>Veuillez saisir une adresse e-mail valide.</mat-error>
+        }
+        @if (form.controls.email.touched && form.controls.email.hasError('blockedDomain')) {
+          <mat-error>Les adresses en yopmail.com ne sont pas autorisées.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </mat-card>
+</section>
