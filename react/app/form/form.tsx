@@ -1,11 +1,8 @@
-
 import { PersonInfo } from "./person-info";
 import { AccountType } from "./account-type";
 import { TypingLevel } from "./typing-level";
 
-
 export function Form() {
-
   /*const validate = (): boolean => {
     const e: Partial<Record<keyof FormState, string>> = {};
 
@@ -50,47 +47,46 @@ export function Form() {
     alert("Formulaire valide (simulation).");*/
   };
 
-  
-
   return (
-    <form> 
-
+    <form>
       <h1 className="text-mainColor text-4xl font-extrabold my-4">
         Formulaire d'inscription
       </h1>
 
       {/* ------------------------------ *
-        *   Personal information section *
-        * ------------------------------ */}
+       *   Personal information section *
+       * ------------------------------ */}
       <h2 className="text-mainColor text-2xl font-extrabold my-4">
         Informations personnelles
       </h2>
-      
+
       <div className="bg-white p-8 pt-4 rounded-2xl mb-10">
         <PersonInfo />
       </div>
 
       {/* ---------------------- *
-        *   Account type section *
-        * ---------------------- */}
-      <h2 className="text-mainColor text-2xl font-extrabold my-4">Type de compte</h2>
-      
+       *   Account type section *
+       * ---------------------- */}
+      <h2 className="text-mainColor text-2xl font-extrabold my-4">
+        Type de compte
+      </h2>
+
       <div className="bg-white p-8 pt-4 rounded-2xl mb-10">
         <AccountType />
       </div>
 
       {/* ---------------------- *
-        *   User level on typing *
-        * ---------------------- */}
+       *   User level on typing *
+       * ---------------------- */}
       <h2 className="text-mainColor text-2xl font-extrabold my-4">
         Niveau en dactylo
       </h2>
-      
+
       <div className="bg-white p-8 pt-4 rounded-2xl mb-10">
-          <TypingLevel />
+        <TypingLevel />
       </div>
 
-      <button 
+      <button
         type="submit"
         className="bg-mainColor hover:opacity-80 hover:cursor-pointer text-white py-1 px-4 rounded-lg mb-4 "
       >
