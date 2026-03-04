@@ -3,8 +3,8 @@ import { Form } from "../form/form";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Tapotons - Formulaire" },
+    { name: "Playground form", content: "Hello" },
   ];
 }
 
