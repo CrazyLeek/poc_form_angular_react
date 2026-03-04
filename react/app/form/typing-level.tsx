@@ -35,6 +35,9 @@ export function TypingLevel(){
 
     return (<>
         <fieldset className="mb-4">
+
+
+            {/* Ten fingers question */}
             <legend
                 className="font-semibold"
             >
@@ -67,12 +70,33 @@ export function TypingLevel(){
             {errors.dixDoigts && <div role="alert">{errors.dixDoigts}</div>}
         </fieldset>
 
+        {/*  Typing speed question*/}
         <label 
             htmlFor={speedTypingHintId}
             className="font-semibold"
         >
           Quelle est votre vitesse de frappe ? (en mots / min)
         </label>
+        
+        <p className="text-gray-500 text-sm"> 
+            Vous ne connaissez pas votre vitesse de frappe ? 
+        </p>
+        <p className="text-gray-500 text-sm mb-2"> 
+            Testez-vous : 
+            <a 
+                href="https://tapotons.fr/test-vitesse-de-frappe/"
+                target="_blank"
+                className="underline text-mainColor ml-1"
+            >
+                tapotons.fr/test-vitesse-de-frappe
+                <img 
+                    src="/pop-icon.svg"
+                    alt=""
+                    className="inline pl-1 w-4" 
+                />
+            </a>
+        </p>
+        
         <input
             id={speedTypingHintId}
             type="number"
