@@ -37,15 +37,15 @@ export function AccountType(){
         setForm((f) => ({ ...f, [key]: value }));
         setErrors((e) => ({ ...e, [key]: undefined }));
         if (key === "coupon") {
-        setForm((f) => ({ ...f, couponValid: null }));
-        setCouponMessage("");
+          setForm((f) => ({ ...f, couponValid: null }));
+          setCouponMessage("");
         }
     };
 
     const handleValidateCoupon = async () => {
         if (!form.coupon.trim()) {
-        setCouponMessage("Entrez un coupon.");
-        setForm((f) => ({ ...f, couponValid: false }));
+          setCouponMessage("Entrez un coupon.");
+          setForm((f) => ({ ...f, couponValid: false }));
         return;
         }
         setCouponLoading(true);
@@ -138,7 +138,7 @@ export function AccountType(){
               {couponLoading ? "Validation..." : "Ajouter"}
             </button>
 
-            {couponMessage && <div role="status">{couponMessage}</div>}
+            {couponMessage && <div role="status" className="text-sm">{couponMessage}</div>}
             
           </div>
         )}
