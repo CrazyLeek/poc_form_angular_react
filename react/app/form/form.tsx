@@ -1,9 +1,10 @@
 // form.tsx
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, useFormState } from "react-hook-form";
 
 import { PersonInfo } from "./person-info";
 import { AccountType } from "./account-type";
 import { TypingLevel } from "./typing-level";
+import { Spinner } from "~/spinner/spinner";
 
 export function Form() {
   const methods = useForm({
@@ -29,9 +30,12 @@ export function Form() {
     },
   });
 
-  const onSubmit = (data: any) => {
+  const { isSubmitting } = useFormState(methods);
+
+  const onSubmit = async (data: any) => {
+    await new Promise((r) => setTimeout(r, 1000));
     console.log("SUBMIT =>", data);
-    alert("Formulaire valide !");
+    alert("Formulaire envoyé !");
   };
 
   return (
@@ -45,7 +49,7 @@ export function Form() {
         <h2 className="text-mainColor text-2xl font-extrabold my-4">
           Informations personnelles
         </h2>
-        <div className="bg-white p-8 pt-4 rounded-2xl mb-10">
+        <div className="bg-white p-8 pt-4 rounded-2xl mb-10 w-[140%]">
           <PersonInfo />
         </div>
 
@@ -53,7 +57,7 @@ export function Form() {
         <h2 className="text-mainColor text-2xl font-extrabold my-4">
           Type de compte
         </h2>
-        <div className="bg-white p-8 pt-4 rounded-2xl mb-10">
+        <div className="bg-white p-8 pt-4 rounded-2xl mb-10 w-[140%]">
           <AccountType />
         </div>
 
@@ -61,15 +65,17 @@ export function Form() {
         <h2 className="text-mainColor text-2xl font-extrabold my-4">
           Niveau en dactylo
         </h2>
-        <div className="bg-white p-8 pt-4 rounded-2xl mb-10">
+        <div className="bg-white p-8 pt-4 rounded-2xl mb-10 w-[140%]">
           <TypingLevel />
         </div>
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="bg-mainColor hover:opacity-80 text-white py-1 px-4 rounded-lg mb-4 cursor-pointer"
         >
           S'inscrire
+          {isSubmitting && <Spinner />}
         </button>
       </form>
     </FormProvider>

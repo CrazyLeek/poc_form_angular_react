@@ -14,7 +14,7 @@ export function TypingLevel() {
 
   return (
     <>
-      {/* Dix doigts */}
+      {/* ---------- Dix doigts -------------- */}
       <fieldset className="mb-4">
         <legend className="font-semibold">
           Savez-vous taper avec vos dix doigts ?
@@ -41,29 +41,50 @@ export function TypingLevel() {
         </label>
 
         {errors.dixDoigts && (
-          <div role="alert">{errors.dixDoigts.message?.toString()}</div>
+          <div role="alert" className="text-red-600 text-sm ml-1">
+            {errors.dixDoigts.message?.toString()}
+          </div>
         )}
       </fieldset>
 
-      {/* Speed typing */}
+      {/* ------------- Speed typing ------------------*/}
       <label htmlFor={speedId} className="font-semibold">
         Vitesse de frappe (mots/min)
       </label>
+      <p className="text-gray-500 text-sm">
+        Vous ne connaissez pas votre vitesse de frappe ?
+      </p>
+      <p className="text-gray-500 text-sm mb-2">
+        Testez-vous :
+        <a
+          href="https://tapotons.fr/test-vitesse-de-frappe/"
+          target="_blank"
+          className="underline text-mainColor ml-1"
+        >
+          tapotons.fr/test-vitesse-de-frappe
+          <img src="/pop-icon.svg" alt="" className="inline pl-1 w-4" />
+        </a>
+      </p>
 
       <input
         id={speedId}
         type="number"
+        placeholder="40"
         {...register("vitesse", {
           required: "Vitesse requise",
           valueAsNumber: true,
           validate: (v) => v > 0 || "Doit être un entier positif",
         })}
-        className="block px-2 py-1 mb-4 border rounded-md"
+        className="block px-2 py-1 border border-gray-300 rounded-md focus:outline-mainColor outline-gray-300 transition-colors delay-70 ease-out"
       />
-      {errors.vitesse && <div role="alert">{errors.vitesse.message?.toString()}</div>}
+      {errors.vitesse && (
+        <div role="alert" className="text-red-600 text-sm ml-1">
+          {errors.vitesse.message?.toString()}
+        </div>
+      )}
 
       {/* Déjà utilisé ? */}
-      <fieldset>
+      <fieldset className="mt-4">
         <legend className="font-semibold">
           Avez-vous déjà utilisé un site de dactylo ?
         </legend>
@@ -89,7 +110,9 @@ export function TypingLevel() {
         </label>
       </fieldset>
       {errors.dejaUtilise && (
-        <div role="alert">{errors.dejaUtilise.message?.toString()}</div>
+        <div role="alert" className="text-red-600 text-sm ml-1">
+          {errors.dejaUtilise.message?.toString()}
+        </div>
       )}
 
       {/* Si oui → cases à cocher */}
@@ -97,7 +120,7 @@ export function TypingLevel() {
         <>
           <p className="mt-4 font-semibold">Lequel(s) ?</p>
 
-          <div className="flex flex-col gap-2 mt-2">
+          <div className="flex flex-col gap-2 mt-2 pl-2">
             {[
               "AgileFingers",
               "Tapotons",
