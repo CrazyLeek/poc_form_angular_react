@@ -1,149 +1,130 @@
-import { useId, useState } from "react";
-
-interface FormState {
-  lastName: string;
-  firstName: string;
-  genre: "M" | "Mme" | "Autre";
-  age: string; // kept string to bind to input value
-  email: string;
-}
+// person-info.tsx
+import { useFormContext } from "react-hook-form";
+import { useId } from "react";
 
 export function PersonInfo() {
-  const lastNameHintId = useId();
-  const firstNameHintId = useId();
-  const ageHintId = useId();
-  const emailHintId = useId();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
-  const [form, setForm] = useState<FormState>({
-    lastName: "",
-    firstName: "",
-    genre: "M",
-    age: "",
-    email: "",
-  });
-
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof FormState, string>>
-  >({});
-
-  const setField = <K extends keyof FormState>(key: K, value: FormState[K]) => {
-    setForm((f) => ({ ...f, [key]: value }));
-    setErrors((e) => ({ ...e, [key]: undefined }));
-  };
+  const lastNameId = useId();
+  const firstNameId = useId();
+  const ageId = useId();
+  const emailId = useId();
 
   return (
     <>
-      {/* ------- lastName -------- */}
-      <label htmlFor={lastNameHintId} className="block font-semibold">
+      {/* lastName */}
+      <label htmlFor={lastNameId} className="block font-semibold">
         Nom
       </label>
-
       <input
-        id={lastNameHintId}
+        id={lastNameId}
         type="text"
-        value={form.lastName}
-        minLength={3}
-        maxLength={40}
-        required
-        onChange={(e) => setField("lastName", e.target.value)}
-        placeholder="Dupont"
-        className="block px-2 py-1 mb-4 border border-gray-300 rounded-md focus:outline-mainColor"
+        {...register("lastName", {
+          required: "Nom requis",
+          minLength: { value: 3, message: "Min 3 caractères" },
+          maxLength: { value: 40, message: "Max 40 caractères" },
+        })}
+        className="block px-2 py-1 mb-2 border rounded-md"
       />
+      {errors.lastName && (
+        <div role="alert">{errors.lastName.message?.toString()}</div>
+      )}
 
-      {errors.lastName && <div role="alert">{errors.lastName}</div>}
-
-      {/* ------- firstName -------- */}
-      <label htmlFor={firstNameHintId} className="block font-semibold">
+      {/* firstName */}
+      <label htmlFor={firstNameId} className="block font-semibold">
         Prénom
       </label>
-
       <input
-        id={firstNameHintId}
+        id={firstNameId}
         type="text"
-        value={form.firstName}
-        minLength={3}
-        maxLength={40}
-        required
-        onChange={(e) => setField("firstName", e.target.value)}
-        placeholder="Jean"
-        className="block px-2 py-1 mb-4 border border-gray-300 rounded-md focus:outline-mainColor"
+        {...register("firstName", {
+          required: "Prénom requis",
+          minLength: { value: 3, message: "Min 3 caractères" },
+          maxLength: { value: 40, message: "Max 40 caractères" },
+        })}
+        className="block px-2 py-1 mb-2 border rounded-md"
       />
+      {errors.firstName && (
+        <div role="alert">{errors.firstName.message?.toString()}</div>
+      )}
 
-      {errors.firstName && <div role="alert">{errors.firstName}</div>}
-
-      {/* ------- Genre -------- */}
+      {/* Genre */}
       <fieldset className="mb-4">
         <legend className="font-semibold">Genre</legend>
-        <label className="block">
+
+        <label>
           <input
             type="radio"
-            name="genre"
             value="M"
-            checked={form.genre === "M"}
-            onChange={() => setField("genre", "M")}
+            {...register("genre")}
             className="mx-2"
           />
           M.
         </label>
-        <label className="block">
+
+        <label>
           <input
             type="radio"
-            name="genre"
             value="Mme"
-            checked={form.genre === "Mme"}
-            onChange={() => setField("genre", "Mme")}
+            {...register("genre")}
             className="mx-2"
           />
           Mme
         </label>
-        <label className="block">
+
+        <label>
           <input
             type="radio"
-            name="genre"
             value="Autre"
-            checked={form.genre === "Autre"}
-            onChange={() => setField("genre", "Autre")}
+            {...register("genre")}
             className="mx-2"
           />
           Autre
         </label>
       </fieldset>
 
-      {/* ------- Age -------- */}
-      <label htmlFor={ageHintId} className="block font-semibold">
+      {/* Age */}
+      <label htmlFor={ageId} className="block font-semibold">
         Age
       </label>
-
       <input
-        id={ageHintId}
+        id={ageId}
         type="number"
-        value={form.age}
-        onChange={(e) => setField("age", e.target.value)}
-        placeholder="30"
-        min={1}
-        max={120}
-        required
-        className="block px-2 py-1 mb-4 border border-gray-300 rounded-md focus:outline-mainColor"
+        {...register("age", {
+          required: "Âge requis",
+          valueAsNumber: true,
+          validate: (v) => v > 0 || "Doit être un entier positif",
+        })}
+        className="block px-2 py-1 mb-2 border rounded-md"
       />
+      {errors.age && <div role="alert">{errors.age.message?.toString()}</div>}
 
-      {errors.age && <div role="alert">{errors.age}</div>}
-
-      {/* ------- email -------- */}
-      <label htmlFor={emailHintId} className="block font-semibold">
+      {/* Email */}
+      <label htmlFor={emailId} className="block font-semibold">
         Adresse mail
       </label>
-
       <input
-        id={emailHintId}
+        id={emailId}
         type="email"
-        value={form.email}
-        required
-        placeholder="nom@example.com"
-        onChange={(e) => setField("email", e.target.value)}
-        className="block px-2 py-1 border border-gray-300 rounded-md focus:outline-mainColor"
+        {...register("email", {
+          required: "Email requis",
+          maxLength: { value: 50, message: "Email trop long" },
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: "Email invalide",
+          },
+          validate: (value) =>
+            !value.toLowerCase().endsWith("yopmail.com") ||
+            "Les adresses 'yopmail.com' ne sont pas autorisées",
+        })}
+        className="block px-2 py-1 border rounded-md"
       />
-
-      {errors.email && <div role="alert">{errors.email}</div>}
+      {errors.email && (
+        <div role="alert">{errors.email.message?.toString()}</div>
+      )}
     </>
   );
 }
