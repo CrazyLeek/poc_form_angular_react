@@ -27,6 +27,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        {/* https://docs.cypress.io/app/references/error-messages#The-Problem */}
+        <script data-cy-bootstrap suppressHydrationWarning>
+          /* placeholder */
+        </script>
+
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />

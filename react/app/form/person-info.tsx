@@ -31,7 +31,11 @@ export function PersonInfo() {
         className="block px-2 py-1 border border-gray-300 rounded-md focus:outline-mainColor outline-gray-300 transition-colors delay-70 ease-out"
       />
       {errors.lastName && (
-        <div role="alert" className="text-red-600 text-sm ml-1">
+        <div
+          role="alert"
+          className="text-red-600 text-sm ml-1"
+          data-cy="error-last-name"
+        >
           {errors.lastName.message?.toString()}
         </div>
       )}

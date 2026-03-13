@@ -73,6 +73,7 @@ export function Form() {
           type="submit"
           disabled={isSubmitting}
           className="bg-mainColor hover:opacity-80 text-white py-1 px-4 rounded-lg mb-4 cursor-pointer"
+          data-cy="btn-submit"
         >
           S'inscrire
           {isSubmitting && <Spinner />}
