@@ -11,7 +11,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <>
-      <header className="w-screen bg-mainColor sticky top-0">
+      <header className=" bg-mainColor sticky top-0">
         <div className="flex items-center ml-[25%]">
           <img
             src="/tapotons-logo.svg"
@@ -21,7 +21,7 @@ export default function Home() {
           <p className="invert font-bold text-4xl">Tapotons</p>
         </div>
       </header>
-      <div className="flex pl-[25%] w-screen bg-bgColor">
+      <div className="flex pl-[25%] bg-bgColor">
         <Form />
       </div>
     </>
