@@ -5,7 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "e2e": "cypress run",
+    "e2e:open": "cypress open",
+    "e2e:ci": "start-server-and-test start http://localhost:4200 e2e"
   },
   "private": true,
   "packageManager": "npm@11.11.0",
@@ -26,8 +29,10 @@
     "@angular/build": "^21.2.0",
     "@angular/cli": "^21.2.0",
     "@angular/compiler-cli": "^21.2.0",
+    "cypress": "^15.12.0",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
+    "start-server-and-test": "^2.1.5",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
