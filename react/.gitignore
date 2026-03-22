@@ -5,3 +5,7 @@
 # React Router
 /.react-router/
 /build/
+
+# Code coverage
+.nyc_output
+coverage
