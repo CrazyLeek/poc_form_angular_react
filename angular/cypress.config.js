@@ -5,5 +5,9 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:4200',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'cypress/support/e2e.js',
+    setupNodeEvents(on, config) {
+      require('@cypress/code-coverage/task')(on, config);
+      return config;
+    },
   },
 });
